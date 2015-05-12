@@ -1,0 +1,10 @@
+#content {
+	width:750px;
+}
+.case {
+	height:100px;
+	width:100px;
+	background-color:#8585AD;
+	margin:2px;
+	float:left;
+}

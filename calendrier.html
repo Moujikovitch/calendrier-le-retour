@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Calendrier</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+	<button onclick="moisPrecedent()">moisPrécédent</button>
+	<button onclick="moisSuivant()">moisSuivant</button>
+	<button onclick="anneePrecedente()">anneePrécédente</button>
+	<button onclick="anneeSuivante()">anneeSuivante</button>
+	
+	<div id="annee"></div>
+	<div id="mois"></div>
+	<div id="content"></div>
+	<div id="zoneinput"></div>
+
+	<script>
+	//fonction de base================================================================
+
+	function idp(ident) {
+		return document.getElementById(ident);
+	};
+
+
+	//gestion de date=================================================================
+
+	var date = new Date();
+	var mois = date.getMonth();
+	var annee = date.getFullYear();
+
+	moislgt = [31, 0, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]; 
+	moistxt = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Aout","Septembre","Octobre","Novembre","Décembre"];
+
+	function bisextile() {
+		if (annee % 4 == 0) {
+		moislgt[1] = 29; 
+		} else {
+		moislgt[1] = 28; 
+		};
+	};
+	bisextile();
+
+
+	//génération html à l'ouverture et fonction de création des cases===============================================================
+
+	var contenu = "";
+		for (i = 0; i < 37; i++) {
+			contenu += "<div id='c"+i.toString()+"' class='case'><p id='p"+i.toString()+"'></p></div>";
+		};
+	idp("content").innerHTML = contenu;
+	idp("mois").innerHTML = moistxt[mois];
+	idp("annee").innerHTML = annee;
+
+function caseCreator() {
+	for (i = 0; i < 37; i++) {
+		idp("p"+i+"").innerHTML = "";
+	};
+	for (i = 0; i < moislgt[mois]; i++) {
+		date.setDate(1);
+		date.setMonth(mois);
+		date.setYear(annee);
+		var firstday = date.getDay();
+		if (firstday == 0) {
+			firstday = 7;
+		};
+		var numcase = i+date.getDay();
+		idp("p"+numcase+"").innerHTML = i+1+"";
+		date = new Date();
+	};
+};
+caseCreator();
+
+
+	//Navigation par click=============================================================
+
+function moisSuivant(){
+	bisextile();
+	if (mois != 11){
+		mois ++;
+		idp("mois").innerHTML = moistxt[mois];
+	} else {
+		mois = 0; 
+		annee ++;
+		idp("mois").innerHTML = moistxt[mois];
+		idp("annee").innerHTML = annee+"";
+	};
+	caseCreator();
+};
+
+function moisPrecedent(){
+	bisextile();
+	if (mois != 0){
+		mois --;
+		idp("mois").innerHTML = moistxt[mois];
+	} else {
+		mois = 11;
+	    annee--;
+	    idp("mois").innerHTML = moistxt[mois];
+	    idp("annee").innerHTML = annee+"";
+	};
+	caseCreator();
+};
+
+function anneeSuivante(){
+		bisextile();
+	    annee++;
+	    idp("annee").innerHTML = annee+"";
+	    caseCreator();
+};
+
+function anneePrecedente(){
+		bisextile();
+	    annee--;
+	    idp("annee").innerHTML = annee+"";
+	  	caseCreator();
+};
+
+
+	//formulaire d'ajout==============================================================
+
+var casecalendrier = document.getElementsByClassName("case")
+casecalendrier.onclick = ouvrirAdder(this.id)
+
+function ouvrirAdder(ident) {
+	idp("zoneinput").innerHTML = "<form method='POST' action='/addtask'><input id='Tache'><input id='Date' value='"+ident+"|"+mois.toString()+"|"+annee.toString()+"'><button type='submit' onclick='ajouterTexte('"+ident+"')'>Ajouter tâche</button></form>";
+};
+
+
+
+
+	</script>
+
+</body>
+</html>
