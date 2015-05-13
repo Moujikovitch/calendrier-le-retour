@@ -1,0 +1,31 @@
+
+<html>
+<head>
+	<title>Calendrier</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+	<button onclick="moisPrecedent()">moisPrécédent</button>
+	<button onclick="moisSuivant()">moisSuivant</button>
+	<button onclick="anneePrecedente()">anneePrécédente</button>
+	<button onclick="anneeSuivante()">anneeSuivante</button>
+	
+	<div id="annee"></div>
+	<div id="mois"></div>
+	<div id="content"></div>
+	<div id="zoneinput"></div>
+	<script>
+	var task = [];
+	var datetask = [];
+	</script>
+	<% @datas.each do |t| %>
+		<script>task.push("<%= t.task  %>")</script>
+	<% end %>
+	<% @datas.each do |t| %>
+		<script>datetask.push("<%= t.date  %>")</script>
+	<% end %>
+	<script src="gestion.js"></script>
+</body>
+</html>

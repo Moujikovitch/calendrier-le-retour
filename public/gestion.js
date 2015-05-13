@@ -1,23 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Calendrier</title>
-	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
-
-	<button onclick="moisPrecedent()">moisPrécédent</button>
-	<button onclick="moisSuivant()">moisSuivant</button>
-	<button onclick="anneePrecedente()">anneePrécédente</button>
-	<button onclick="anneeSuivante()">anneeSuivante</button>
-	
-	<div id="annee"></div>
-	<div id="mois"></div>
-	<div id="content"></div>
-	<div id="zoneinput"></div>
-
-	<script>
 	//fonction de base================================================================
 
 	function idp(ident) {
@@ -74,6 +54,7 @@ function caseCreator() {
 caseCreator();
 
 
+
 	//Navigation par click=============================================================
 
 function moisSuivant(){
@@ -88,6 +69,7 @@ function moisSuivant(){
 		idp("annee").innerHTML = annee+"";
 	};
 	caseCreator();
+	editCase();
 };
 
 function moisPrecedent(){
@@ -102,6 +84,7 @@ function moisPrecedent(){
 	    idp("annee").innerHTML = annee+"";
 	};
 	caseCreator();
+	editCase();
 };
 
 function anneeSuivante(){
@@ -109,6 +92,7 @@ function anneeSuivante(){
 	    annee++;
 	    idp("annee").innerHTML = annee+"";
 	    caseCreator();
+	    editCase();
 };
 
 function anneePrecedente(){
@@ -116,6 +100,7 @@ function anneePrecedente(){
 	    annee--;
 	    idp("annee").innerHTML = annee+"";
 	  	caseCreator();
+	  	editCase()
 };
 
 
@@ -128,12 +113,19 @@ casecalendrier[i].addEventListener("click",function () {ouvrirAdder(this.id)});
 };
 
 function ouvrirAdder(ident) {
-	idp("zoneinput").innerHTML = "<form method='POST' action='/addtask'><input id='Tache'><input id='Date' value='"+ident+"|"+mois.toString()+"|"+annee.toString()+"'><button type='submit' onclick='ajouterTexte('"+ident+"')'>Ajouter tâche</button></form>";
+	idp("zoneinput").innerHTML = "<form method='POST' action='/addtask'><input id='Tache' name='task'><input id='Date' name='date' value='"+ident+"|"+mois.toString()+"|"+annee.toString()+"'><button type='submit' onclick='ajouterTexte('"+ident+"')'>Ajouter tâche</button></form>";
 };
 
-
-
-	</script>
-
-</body>
-</html>
+	//distribution des tâches dans les cases========================================
+function editCase() {
+	for (i=0;i<37;i++) {
+		idp("l"+i.toString()).innerHTML = "";
+	};
+	for (i=0;i<datetask.length;i++) {
+		var paradate = datetask[i].split("|");
+		if (paradate[1] == mois && paradate[2] == annee) {
+			idp("l"+paradate[0].substring(1,3)).innerHTML = task[i];
+		};
+	};
+};
+editCase();
