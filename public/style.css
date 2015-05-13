@@ -1,13 +1,46 @@
+body {
+	padding:0;
+	margin:0;
+	font-family:"Delicious";
+}
 #content {
 	width:750px;
+	margin:auto;
+}
+#haut {
+	width:750px;
+	margin:auto;
+}
+#banner {
+	border-radius:50px;
+	background-image: url('barry.jpeg');
+	background-position:center;
+	background-size:100%;
+	width:750px;
+	height:200px;
 }
 .case {
 	height:100px;
 	width:100px;
 	background-color:#8585AD;
-	margin:2px;
+	margin-left:4px;
+	margin-top:4px;
 	float:left;
+	border-radius:15px;
 }
 #Date {
-
+	display:none;
+}
+#container {
+	height:100%;
+	width:100%;
+	margin:auto;
+}
+@font-face {
+	font-family:"Cardinal";
+    src: url('/font/Cardinal.ttf');
+}
+@font-face {
+	font-family:"Delicious";
+    src: url('/font/Delicious Curls.ttf');
 }

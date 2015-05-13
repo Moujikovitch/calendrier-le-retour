@@ -50,6 +50,13 @@ function caseCreator() {
 		idp("p"+numcase+"").innerHTML = i+1+"";
 		date = new Date();
 	};
+	for (i = 0; i < 37; i++) {
+		if (idp("p"+i+"").innerHTML == "") {
+			idp("c"+i+"").style.backgroundColor = "white";
+		} else {
+			idp("c"+i+"").style.backgroundColor = "#8585AD";
+		}
+	};
 };
 caseCreator();
 
@@ -117,6 +124,7 @@ function ouvrirAdder(ident) {
 };
 
 	//distribution des tâches dans les cases========================================
+
 function editCase() {
 	for (i=0;i<37;i++) {
 		idp("l"+i.toString()).innerHTML = "";
